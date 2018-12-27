@@ -1,0 +1,53 @@
+@import "material-components-web/material-components-web";
+
+body {
+  margin:0
+}
+
+.padding-top__medium {
+  padding-top: 15px
+}
+
+.app-fab--absolute {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.text-field-rounded {
+  width: 100%;
+  @include mdc-text-field-outline-shape-radius(50%, false)
+}
+
+@media(min-width: 1024px) {
+   .app-fab--absolute {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+.standard-image-list {
+  @include mdc-image-list-standard-columns(5, 10px);
+  @include mdc-image-list-shape-radius(5px);
+}
+
+.standard-dilog-form {
+  @include mdc-dialog-min-width(500px);
+  @include mdc-dialog-scroll-divider-color(#E0E0E0, 1);
+}
+
+@media (max-width: 599px) {
+  .standard-image-list {
+    @include mdc-image-list-standard-columns(3, 10px);
+  }
+
+  .standard-dilog-form {
+    @include mdc-dialog-min-width(calc(100vh - 32px));
+  }
+}
+
+@media (max-width: 399px) {
+  .standard-image-list {
+    @include mdc-image-list-standard-columns(2, 5px);
+  }
+}

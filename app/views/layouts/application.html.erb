@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ProgressiveWebAppTest</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application' %>
+    <%= javascript_pack_tag    'application' %>
+    <%= javascript_pack_tag    'db' %>
+    <%= javascript_include_tag 'application' %>
+    <link rel="manifest" href="/manifest.json" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  </head>
+
+  <body>
+    <%= react_component('Index') %>
+  </body>
+</html>
