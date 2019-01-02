@@ -42,7 +42,7 @@ body {
   }
 
   .standard-dilog-form {
-    @include mdc-dialog-min-width(calc(100vh - 32px));
+    @include mdc-dialog-min-width(calc(100vw - 32px));
   }
 }
 
