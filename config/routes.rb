@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/offline' => 'application#offline'
 
   namespace :api, constraints: { format: 'json' } do
-    resources :dogs, only: [:index], defaults: { format: :json }
+    resources :dogs, only: [:index, :create], defaults: { format: :json }
     resources :cats, only: [:index], defaults: { format: :json }
   end
   get '*path', to: 'application#main'

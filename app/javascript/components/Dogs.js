@@ -10,6 +10,7 @@ class Dogs extends React.Component {
   constructor(props) {
     super(props)
     this.fetchData = this.fetchData.bind(this)
+    this.createDog = this.createDog.bind(this)
     this.renderData = this.renderData.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
     this.handleDialogClose = this.handleDialogClose.bind(this)
@@ -36,9 +37,24 @@ class Dogs extends React.Component {
           ...json
         });
       })
-      .catch((error) => {
+      .catch((_error) => {
         console.log('error')
       })
+  }
+
+  createDog(data) {
+    fetch('/api/dogs', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then((_response) => {
+      this.fetchData()
+    }).catch((_error) => {
+      console.log('error')
+    })
   }
 
   handleAddClick() {
@@ -48,11 +64,12 @@ class Dogs extends React.Component {
   }
 
   handleDialogClose(action, values) {
-    console.log(action)
-    console.log(values)
     this.setState({
       showDialog: false
     })
+    if(action) {
+      this.createDog(values)
+    }
   }
 
   renderData() {

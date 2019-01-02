@@ -3,4 +3,8 @@ if (navigator.serviceWorker) {
     .then(function(reg) {
       console.log('[Companion]', 'Service worker registered!');
     });
+
+  Notification.requestPermission().then(function(result) {
+    console.log('Notification ', result);
+  })
 }

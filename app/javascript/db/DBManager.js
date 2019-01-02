@@ -20,6 +20,7 @@ class DBManager {
       console.log('onupgradeNeeded')
       let db = e.target.result
       db.createObjectStore("requestData", { keyPath: "url" });
+      db.createObjectStore("pendingRequests", { keyPath: "id", autoIncrement: true });
     }
     req.onsuccess = (_e) => {
       this.db = req.result
@@ -52,6 +53,25 @@ class DBManager {
     return tx.complete
   }
 
+  saveToPendingRequests(data, url) {
+    return new Promise((resolve, reject) => {
+      if(!this.isBrowserCompatible()) {
+        reject()
+      }
+
+      var tx = this.db.transaction('pendingRequests', "readwrite")
+      var store = tx.objectStore('pendingRequests')
+      var request = store.put({data: data, url: url})
+      request.onsuccess = (event) => {
+        resolve(event)
+      }
+      request.onerror = () => {
+        reject()
+      }
+      tx.complete
+    })
+  }
+
   getFromRequests(url) {
     return new Promise((resolve, reject) => {
       if(!this.isBrowserCompatible()) {
@@ -67,6 +87,33 @@ class DBManager {
         reject()
       }
     })
+  }
+
+  getPendingRequest(id) {
+    return new Promise((resolve, reject) => {
+      if(!this.isBrowserCompatible()) {
+        reject()
+      }
+      var tx = this.db.transaction('pendingRequests', 'readonly')
+      var store = tx.objectStore('pendingRequests')
+      var request = store.get(id)
+      request.onsuccess = (event) => {
+        resolve(event.target.result)
+      }
+      request.onerror = () => {
+        reject()
+      }
+    })
+  }
+
+  deletePendingRequest(id) {
+    if(!this.isBrowserCompatible()) {
+      return false
+    }
+    var tx = this.db.transaction('pendingRequests', 'readwrite')
+    var store = tx.objectStore('pendingRequests')
+    store.delete(id)
+    return tx.complete
   }
 }
 
